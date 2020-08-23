@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Built application files
 *.apk
 *.aar
@@ -85,6 +86,8 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 =======
+=======
+>>>>>>> e4bf3b3be681af559c035f4856e63021d9594562
 *.iml
 .gradle
 /local.properties
@@ -99,4 +102,7 @@ lint/tmp/
 /captures
 .externalNativeBuild
 .cxx
+<<<<<<< HEAD
 >>>>>>> e4bf3b3... 首次提交
+=======
+>>>>>>> e4bf3b3be681af559c035f4856e63021d9594562
