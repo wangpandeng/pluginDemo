@@ -12,7 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HookStubActivity"/>
+        <service
+            android:name=".StubService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".HookStubActivity" />
         <activity android:name=".pluginhook.HookTestActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

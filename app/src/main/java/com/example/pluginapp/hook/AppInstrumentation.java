@@ -83,25 +83,6 @@ public class AppInstrumentation extends Instrumentation {
         return null;
     }
 
-    //加载资源resource的
-    private void injectActivity(@Nullable Activity activity) {
-        Intent intent = activity.getIntent();
-        Context base = activity.getBaseContext();
-        try {
-            Reflect.on(base).set("mResources", pluginContext.getResources());
-            Reflect.on(activity).set("mResources", pluginContext.getResources());
-            Reflect.on(activity).set("mBase", pluginContext);
-            Reflect.on(activity).set("mApplication", pluginContext.getApplicationContext());
-            // for native activity
-            ComponentName componentName = intent.getParcelableExtra(KEY_COMPONENT);
-            Intent wrapperIntent = new Intent(intent);
-            if (componentName != null) {
-                wrapperIntent.setClassName(componentName.getPackageName(), componentName.getClassName());
-            }
-        } catch (Exception e) {
-        }
-    }
-
 
     @Override
     public void callActivityOnCreate(Activity activity, Bundle icicle) {
@@ -116,6 +97,24 @@ public class AppInstrumentation extends Instrumentation {
         // 在这里进行资源的替换
         injectActivity(activity);
         super.callActivityOnCreate(activity, icicle, persistentState);
+    }
+
+    //加载资源resource的
+    private void injectActivity(@Nullable Activity activity) {
+        Intent intent = activity.getIntent();
+        Context baseContext = activity.getBaseContext();
+        try {
+            Reflect.on(baseContext).set("mResources", pluginContext.getResources());
+            Reflect.on(activity).set("mResources", pluginContext.getResources());
+            Reflect.on(activity).set("mBase", pluginContext);
+            Reflect.on(activity).set("mApplication", pluginContext.getApplicationContext());
+            ComponentName componentName = intent.getParcelableExtra(KEY_COMPONENT);
+            Intent wrapperIntent = new Intent(intent);
+            if (componentName != null) {
+                wrapperIntent.setClassName(componentName.getPackageName(), componentName.getClassName());
+            }
+        } catch (Exception e) {
+        }
     }
 
 }

@@ -38,13 +38,13 @@ public class PluginContext extends ContextWrapper {
     private Resources resources;
     private AssetManager assetManager;
     private Resources.Theme theme;
-    private String pluginPath;
+    private String pluginApkPath;
 
-    public PluginContext(String pluginPath, Activity context, Application application, ClassLoader classLoader) {
+    public PluginContext(String pluginApkPath, Activity context, Application application, ClassLoader classLoader) {
         super(context);
         this.context = context;
         this.application = application;
-        this.pluginPath = pluginPath;
+        this.pluginApkPath = pluginApkPath;
         this.classLoader = classLoader;
         generateResources();
     }
@@ -53,7 +53,7 @@ public class PluginContext extends ContextWrapper {
         try {
             assetManager = AssetManager.class.newInstance();
             Method method = assetManager.getClass().getMethod("addAssetPath", String.class);
-            method.invoke(assetManager, pluginPath);
+            method.invoke(assetManager, pluginApkPath);
             resources = new Resources(assetManager, context.getResources().getDisplayMetrics(), context.getResources().getConfiguration());
         } catch (Exception e) {
             e.printStackTrace();
